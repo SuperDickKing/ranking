@@ -1,14 +1,72 @@
 {
   "teachers": {
-    "order": [],
-    "items": {}
+    "order": [
+      "曲洋",
+      "何军",
+      "王轩",
+      "韩宛蓉",
+      "大迪克"
+    ],
+    "items": {
+      "曲洋": {
+        "votes": 19,
+        "comments": [
+          {
+            "text": "天天瞎几把打人.老畜生还他妈老打男生隐私部位老畜生",
+            "time": 1783308249703
+          }
+        ]
+      },
+      "何军": {
+        "votes": 3,
+        "comments": []
+      },
+      "王轩": {
+        "votes": 1,
+        "comments": []
+      },
+      "韩宛蓉": {
+        "votes": 4,
+        "comments": []
+      },
+      "大迪克": {
+        "votes": 1,
+        "comments": []
+      }
+    }
   },
   "students": {
-    "order": [],
-    "items": {}
+    "order": [
+      "糖宝",
+      "张子墨"
+    ],
+    "items": {
+      "糖宝": {
+        "votes": 10,
+        "comments": []
+      },
+      "张子墨": {
+        "votes": 2,
+        "comments": []
+      }
+    }
   },
   "hangla": {
-    "order": [],
-    "items": {}
+    "order": [
+      "曲洋",
+      "刀客塔"
+    ],
+    "items": {
+      "曲洋": {
+        "hang": 0,
+        "la": 6,
+        "comments": []
+      },
+      "刀客塔": {
+        "hang": 2,
+        "la": 0,
+        "comments": []
+      }
+    }
   }
 }
