@@ -740,6 +740,25 @@ var App = (function () {
 
       renderTab('teachers');
       _showToast('加载完成');
+
+      var disclaimer = document.getElementById('disclaimer');
+      var appEl = document.getElementById('app');
+      var loading = document.getElementById('disclaimer-loading');
+      if (disclaimer) {
+        setTimeout(function () {
+          if (loading) loading.innerHTML = '<span>加载完成</span>';
+          setTimeout(function () {
+            disclaimer.style.transition = 'opacity 0.4s';
+            disclaimer.style.opacity = '0';
+            setTimeout(function () {
+              disclaimer.style.display = 'none';
+              if (appEl) appEl.style.display = '';
+            }, 400);
+          }, 600);
+        }, 1000);
+      } else {
+        if (appEl) appEl.style.display = '';
+      }
     }).catch(function (err) {
       document.getElementById('app').innerHTML =
         '<div class="setup-warning">' +
