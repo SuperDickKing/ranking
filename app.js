@@ -415,15 +415,16 @@ var App = (function () {
 
     var medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : '#' + (idx + 1);
 
+    var total = item.hang + item.la;
+    var pct = total > 0 ? (item.hang / total) : 0.5;
     var tag = '';
-    var diff = item.hang - item.la;
-    if (diff >= 5) tag = '<span class="tag tag-hang">夯天花板</span>';
-    else if (diff >= 2) tag = '<span class="tag tag-hang">人上人</span>';
-    else if (diff >= 0) tag = '<span class="tag tag-mid">NPC</span>';
-    else if (diff >= -3) tag = '<span class="tag tag-mid">拉完了</span>';
+    if (total === 0) tag = '<span class="tag tag-mid">NPC</span>';
+    else if (pct >= 0.85) tag = '<span class="tag tag-hang">夯天花板</span>';
+    else if (pct >= 0.65) tag = '<span class="tag tag-hang">人上人</span>';
+    else if (pct >= 0.40) tag = '<span class="tag tag-mid">NPC</span>';
+    else if (pct >= 0.20) tag = '<span class="tag tag-mid">拉完了</span>';
     else tag = '<span class="tag tag-la">💩 拉穿地心</span>';
 
-    var total = item.hang + item.la;
     var hangPct = total > 0 ? (item.hang / total * 100) : 50;
 
     div.innerHTML =
