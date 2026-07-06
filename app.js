@@ -104,6 +104,7 @@ var App = (function () {
       if (!token) return reject(new Error('未配置 Token'));
 
       fetch(window.CONFIG.getApiUrl(), {
+        cache: 'no-cache',
         headers: {
           'Authorization': 'Bearer ' + token,
           'Accept': 'application/vnd.github.v3+json'
