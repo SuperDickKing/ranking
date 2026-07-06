@@ -9,8 +9,11 @@ body {
   background: #fff;
   color: #000;
   min-height: 100vh;
+  min-height: -webkit-fill-available;
   overflow-x: hidden;
 }
+
+html { height: -webkit-fill-available; }
 
 .container {
   max-width: 860px;
@@ -781,7 +784,128 @@ body {
   background: #555;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
+  .container { padding: 8px; }
+
+  .site-title {
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    -webkit-text-stroke: 1.5px #ffd700;
+    text-stroke: 1.5px #ffd700;
+    text-shadow: 2px 2px 0 #ff00ff, 4px 4px 0 #00ffff;
+    padding: 12px 0 4px;
+  }
+
+  .site-subtitle {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    padding: 4px 0;
+    margin-bottom: 12px;
+  }
+
+  .tab-btn {
+    font-size: 0.65rem;
+    padding: 8px 2px;
+    letter-spacing: 0;
+  }
+
+  .add-bar {
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
+    box-shadow: 3px 3px 0 #000;
+  }
+
+  .add-bar input {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .add-bar button {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .rank-item {
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 8px 8px;
+    box-shadow: 3px 3px 0 #000;
+  }
+
+  .rank-item:nth-child(1) {
+    box-shadow: 4px 4px 0 #ff00ff;
+  }
+
+  .rank-name {
+    font-size: 0.9rem;
+    min-width: 100%;
+    order: -1;
+    margin-bottom: 2px;
+  }
+
+  .rank-num {
+    min-width: 26px;
+    font-size: 0.85rem;
+  }
+
+  .rank-votes {
+    font-size: 0.8rem;
+    min-width: 40px;
+  }
+
+  .btn-vote {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+
+  .comment-badge {
+    font-size: 0.7rem;
+    min-width: 35px;
+  }
+
+  .hangla-item .rank-votes {
+    gap: 8px;
+    font-size: 0.8rem;
+  }
+
+  .hangla-btns {
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .btn-hang, .btn-la {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+  }
+
+  .rank-bar { height: 22px; }
+  .bar-hang, .bar-la {
+    font-size: 0.6rem;
+    min-width: 30px;
+  }
+
+  .modal { width: 100%; max-width: 100%; max-height: 100vh; box-shadow: none; border-width: 0; }
+  .modal-header { padding: 10px 12px; }
+  .modal-header h3 { font-size: 1rem; }
+  .modal-body { padding: 12px; }
+  .dlg-stats { font-size: 0.85rem; padding: 10px; gap: 8px; }
+  .dlg-actions { flex-direction: column; gap: 4px; }
+  .dlg-actions button { padding: 10px; }
+  .comment-input-wrap { flex-direction: column; gap: 4px; }
+  .comment-input-wrap input { width: 100%; }
+  .comment-input-wrap button { width: 100%; padding: 10px; }
+
+  .empty-msg { font-size: 1rem; padding: 30px; letter-spacing: 4px; }
+
+  .setup-box { padding: 20px; box-shadow: 6px 6px 0 #000; }
+  .setup-box h2 { font-size: 1.2rem; letter-spacing: 3px; }
+
+  #toast-container { top: 10px; }
+  .toast { padding: 10px 16px; font-size: 0.8rem; }
+}
+
+@media (min-width: 481px) and (max-width: 600px) {
   .site-title {
     font-size: 1.8rem;
     letter-spacing: 4px;
@@ -816,4 +940,12 @@ body {
 .rank-num, .rank-votes, .comment-badge {
   user-select: none;
   -webkit-user-select: none;
+}
+
+/* Mobile tap optimization */
+button, a, .rank-name, .modal-close { touch-action: manipulation; }
+
+/* Landscape tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container { padding: 20px 32px; }
 }
