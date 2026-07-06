@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大 排 行</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container" id="app">
+
+    <div class="site-title">
+      <span>⬡</span> 大 排 行 <span>⬡</span>
+    </div>
+    <div class="site-subtitle">
+      ░░░ 绝 对 公 正 ░░░
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="teachers">最 CS 老师</button>
+      <button class="tab-btn" data-tab="students">最 CS 学生</button>
+      <button class="tab-btn" data-tab="hangla">夯 ↔ 拉</button>
+    </div>
+
+    <div class="tab-panel active" data-tab="teachers">
+      <div class="add-bar">
+        <input type="text" id="input-teacher" placeholder="输入老师人名..." maxlength="20" />
+        <button id="btn-add-teacher">添加</button>
+      </div>
+      <div class="rank-list" id="teachers-list">
+        <div class="empty-msg">【加载中...】</div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-tab="students">
+      <div class="add-bar">
+        <input type="text" id="input-student" placeholder="输入学生人名..." maxlength="20" />
+        <button id="btn-add-student">添加</button>
+      </div>
+      <div class="rank-list" id="students-list">
+        <div class="empty-msg">【加载中...】</div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-tab="hangla">
+      <div class="add-bar">
+        <input type="text" id="input-hangla" placeholder="输入人物名..." maxlength="20" />
+        <button id="btn-add-hangla">添加</button>
+      </div>
+      <div class="rank-list" id="hangla-list">
+        <div class="empty-msg">【加载中...】</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">◈ 人物</h3>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body">
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
