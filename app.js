@@ -534,6 +534,7 @@ var App = (function () {
         if (result.ok) {
           input.value = '';
           showDetail(category, name);
+          renderTab(_currentTab);
           _showToast('评论成功');
         } else {
           _showToast(result.msg);
