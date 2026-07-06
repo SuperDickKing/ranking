@@ -148,50 +148,54 @@ var App = (function () {
       var contentStr = JSON.stringify(_data, null, 2);
       var contentBase64 = btoa(unescape(encodeURIComponent(contentStr)));
 
-      fetch(window.CONFIG.getApiUrl(), {
-        headers: {
-          'Authorization': 'Bearer ' + token,
-          'Accept': 'application/vnd.github.v3+json'
+      _doSave(contentBase64, token, 3).then(function () {
+        _isSaving = false;
+        resolve();
+        if (_pendingChanges.length > 0) {
+          var next = _pendingChanges.shift();
+          saveData().then(next.resolve).catch(next.reject);
         }
-      })
-        .then(function (res) {
-          if (!res.ok) throw new Error('获取文件 SHA 失败 (HTTP ' + res.status + ')');
-          return res.json();
-        })
-        .then(function (fileInfo) {
-          var sha = fileInfo.sha;
-          return fetch(window.CONFIG.getApiUrl(), {
-            method: 'PUT',
-            headers: {
-              'Authorization': 'Bearer ' + token,
-              'Accept': 'application/vnd.github.v3+json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              message: 'update ranking data [' + new Date().toLocaleString('zh-CN') + ']',
-              content: contentBase64,
-              sha: sha,
-              branch: window.CONFIG.branch
-            })
-          });
-        })
-        .then(function (res) {
-          if (!res.ok) throw new Error('数据保存失败 (HTTP ' + res.status + ')');
-          return res.json();
-        })
-        .then(function () {
-          _isSaving = false;
-          resolve();
-          if (_pendingChanges.length > 0) {
-            var next = _pendingChanges.shift();
-            saveData().then(next.resolve).catch(next.reject);
-          }
-        })
-        .catch(function (err) {
-          _isSaving = false;
-          reject(err);
-        });
+      }).catch(function (err) {
+        _isSaving = false;
+        reject(err);
+      });
     });
+  }
+
+  function _doSave(contentBase64, token, retries) {
+    return fetch(window.CONFIG.getApiUrl(), {
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error('获取文件 SHA 失败 (HTTP ' + res.status + ')');
+        return res.json();
+      })
+      .then(function (fileInfo) {
+        return fetch(window.CONFIG.getApiUrl(), {
+          method: 'PUT',
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'update',
+            content: contentBase64,
+            sha: fileInfo.sha,
+            branch: window.CONFIG.branch
+          })
+        });
+      })
+      .then(function (res) {
+        if (res.status === 409 && retries > 0) {
+          return _doSave(contentBase64, token, retries - 1);
+        }
+        if (!res.ok) throw new Error('数据保存失败 (HTTP ' + res.status + ')');
+        return res.json();
+      });
   }
 
   function _ensurePerson(category, name) {
