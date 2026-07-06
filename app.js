@@ -755,8 +755,8 @@ var App = (function () {
               disclaimer.style.display = 'none';
               if (appEl) appEl.style.display = '';
             }, 400);
-          }, 600);
-        }, 1000);
+          }, 100);
+        }, 500);
       } else {
         if (appEl) appEl.style.display = '';
       }
