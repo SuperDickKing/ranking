@@ -767,10 +767,10 @@ var App = (function () {
           '<p>' + _escapeHtml(err.message) + '</p>' +
           '<hr/>' +
           '<p>请确认：</p>' +
-          '<p>1. GitHub 仓库和分支名是否正确</p>' +
-          '<p>2. 仓库里已有 <code>data/data.json</code> 文件</p>' +
-          '<p>3. Token 权限是否为 Contents: Read and write</p>' +
-          '<p>4. 如果仓库是私有的，Token 需要额外权限</p>' +
+          '<p>1. 库名是否正确</p>' +
+          '<p>2. 已有数据文件</p>' +
+          '<p>3. 权限是否为Read and write</p>' +
+          '<p>4. 请确保配置正确</p>' +
           '<button onclick="location.reload()" style="margin-top:16px;padding:8px 24px;cursor:pointer;">重新加载</button>' +
         '</div>';
     });
@@ -789,6 +789,27 @@ var App = (function () {
       _showToast('仅支持中文人名');
       return;
     }
+
+    var now = Date.now();
+    var lastAdd = parseInt(localStorage.getItem('rl_add_global') || '0', 10);
+    if (now - lastAdd < 2000) {
+      var sec = Math.ceil((2000 - (now - lastAdd)) / 1000);
+      _showToast('操作过快，请等 ' + sec + ' 秒后再试');
+      return;
+    }
+
+    var hourlyCount = 0;
+    var hourlyRaw = localStorage.getItem('rl_add_hourly');
+    var hourlyArr = hourlyRaw ? JSON.parse(hourlyRaw) : [];
+    hourlyArr = hourlyArr.filter(function (t) { return now - t < 3600000; });
+    if (hourlyArr.length >= 40) {
+      _showToast('已达每小时添加上限（40个），请稍后再试');
+      return;
+    }
+    hourlyArr.push(now);
+    localStorage.setItem('rl_add_hourly', JSON.stringify(hourlyArr));
+
+    localStorage.setItem('rl_add_global', String(now));
 
     var btnId = 'btn-add-' + category;
     var btn = document.getElementById(btnId);
